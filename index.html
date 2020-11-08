@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+   <title>Dronecoria World Map</title>
+
+   <meta charset="utf-8" />
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <link rel="shortcut icon" type="image/x-icon" href="docs/images/favicon.ico" />
+   <link rel="stylesheet"
+         href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+         integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin=""/>
+   <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+           integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+   <style>
+      html, body {
+         height: 100%;
+         margin: 0;
+      }
+      #map {
+         width: 600px;
+         height: 400px;
+      }
+      a {
+         text-decoration: none;
+      }
+   </style>
+</head>
+<body>
+
+<div id='map'></div>
+
+<script>
+   var map = L.map('map').setView(
+      [40.493673, -3.875752], // Center point
+      5             // Zoom level
+   );
+
+   var tile = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '<a href="https://dronecoria.org" target="_blank">Dronecoria</a> | &copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a> contributors'
+   })
+   tile.addTo(map);
+
+   var DroneMeta = L.Icon.extend({
+      options: {
+         shadowUrl:    'drone_shadow_100.png',
+         iconSize:     [60, 37],
+         shadowSize:   [60, 20],
+         iconAnchor:   [34, 30],
+         shadowAnchor: [30, 10],
+         popupAnchor:  [-3, -26]
+      }
+   });
+   var TreesMeta = L.Icon.extend({
+      options: {
+         shadowUrl:    'trees_shadow_100.png',
+         iconSize:     [60, 55],
+         shadowSize:   [60, 43],
+         iconAnchor:   [32, 54],
+         shadowAnchor: [29, 43],
+         popupAnchor:  [0, -30]
+      }
+   });
+   var SeedMeta = L.Icon.extend({
+      options: {
+         shadowUrl:    'seed_shadow_100.png',
+         iconSize:     [44, 80],
+         shadowSize:   [44, 31],
+         iconAnchor:   [16, 46],
+         shadowAnchor: [6, 32],
+         popupAnchor:  [6, -32]
+      }
+   });
+   var PersonMeta = L.Icon.extend({
+      options: {
+         shadowUrl:    'person_shadow_100.png',
+         iconSize:     [40, 49],
+         shadowSize:   [40, 31],
+         iconAnchor:   [20, 48],
+         shadowAnchor: [16, 30],
+         popupAnchor:  [1, -46]
+      }
+   });
+
+   var droneIcon = new DroneMeta({iconUrl: 'drone_icon_100.png'});
+   var treesIcon = new TreesMeta({iconUrl: 'trees_icon_100.png'});
+   var seedIcon = new SeedMeta({iconUrl: 'seed_icon_100.png'});
+   var personIcon = new PersonMeta({iconUrl: 'person_icon_100.png'});
+   // L.marker([51.49, -0.1], ).bindPopup("I am a marker.").addTo(map);
+
+   // Dronecoria - Drone
+   L.marker([38.7006143,-0.4959241], {icon: droneIcon}).bindPopup(
+      '<b>Dronecoria</b><br/>' +
+      '<i>Non-profit organisation</i><br/>' +
+      '<a href="dronecoria.org"><i class="fa fa-globe" aria-hidden="true"></i> dronecoria.org</a><br/>' +
+      '<a href="facebook.com/dronecoria"><i class="fa fa-facebook" aria-hidden="true"></i></a> ' +
+      '<a href="instagram.com/dronecoria"><i class="fa fa-instagram" aria-hidden="true"></i></a> ' +
+      '<a href="twitter.com/dronecoria"><i class="fa fa-twitter" aria-hidden="true"></i></a> '
+   ).addTo(map);
+
+   // Semillistas - Seed
+   L.marker([36.9368755,-3.3290543], {icon: seedIcon}).bindPopup(
+      '<b>Semillistas</b><br/>' +
+      '<i>Non-profit organisation</i><br/>' +
+      '<a href="semillistas.es"><i class="fa fa-globe" aria-hidden="true"></i> semillistas.es</a><br/>' +
+      '<a href="facebook.com/SemillistasAndalucia"><i class="fa fa-facebook" aria-hidden="true"></i></a> ' +
+      '<a href="instagram.com/semillistasandalucia"><i class="fa fa-instagram" aria-hidden="true"></i></a> '
+   ).addTo(map);
+
+   // Antonio Espinosa - Person
+   L.marker([40.493673, -3.875752], {icon: personIcon}).bindPopup(
+      '<b>Antonio Espinosa</b><br/>' +
+      '<i>Software Engineer</i><br/>' +
+      '<a href="twitter.com/antespi"><i class="fa fa-twitter" aria-hidden="true"></i></a> ' +
+      '<a href="github.com/antespi"><i class="fa fa-github" aria-hidden="true"></i></a> '
+   ).addTo(map);
+
+</script>
+
+
+
+</body>
+</html>
