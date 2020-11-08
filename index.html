@@ -88,7 +88,7 @@
    var personIcon = new PersonMeta({iconUrl: 'person_icon_100.png'});
    // L.marker([51.49, -0.1], ).bindPopup("I am a marker.").addTo(map);
 
-   // Dronecoria - Drone
+   // Dronecoria - Drone Maker
    L.marker([38.7006143,-0.4959241], {icon: droneIcon}).bindPopup(
       '<b>Dronecoria</b><br/>' +
       '<i>Non-profit organisation</i><br/>' +
@@ -98,7 +98,7 @@
       '<a href="http://twitter.com/dronecoria" target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i></a> '
    ).addTo(map);
 
-   // Semillistas - Seed
+   // Semillistas - Seed researcher
    L.marker([36.9368755,-3.3290543], {icon: seedIcon}).bindPopup(
       '<b>Semillistas</b><br/>' +
       '<i>Non-profit organisation</i><br/>' +
@@ -107,12 +107,18 @@
       '<a href="http://instagram.com/semillistasandalucia" target="_blank"><i class="fa fa-instagram" aria-hidden="true"></i></a> '
    ).addTo(map);
 
-   // Antonio Espinosa - Person
+   // Antonio Espinosa - Volunteer
    L.marker([40.493673, -3.875752], {icon: personIcon}).bindPopup(
       '<b>Antonio Espinosa</b><br/>' +
       '<i>Software Engineer</i><br/>' +
       '<a href="http://twitter.com/antespi" target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i></a> ' +
       '<a href="http://github.com/antespi" target="_blank"><i class="fa fa-github" aria-hidden="true"></i></a> '
+   ).addTo(map);
+
+   // Lleida - Reforest project
+   L.marker([42.1647265,0.9264575], {icon: treesIcon}).bindPopup(
+      '<b>Reforest project</b><br/>' +
+      '<i>Lleida</i>'
    ).addTo(map);
 
 </script>
