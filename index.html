@@ -12,14 +12,21 @@
    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
            integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+   <link rel="stylesheet"
+         href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.css" crossorigin=""/>
+   <link rel="stylesheet"
+         href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css" crossorigin=""/>
+   <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js" crossorigin=""></script>
+
    <style>
       html, body {
          height: 100%;
          margin: 0;
       }
       #map {
-         width: 600px;
-         height: 400px;
+         width: 100%;
+         height: 100%;
       }
       a {
          text-decoration: none;
@@ -29,97 +36,100 @@
 <body>
 
 <div id='map'></div>
+<div id='bottomleft'></div>
 
 <script>
-   var map = L.map('map').setView(
-      [40.493673, -3.875752], // Center point
-      5             // Zoom level
-   );
 
-   var tile = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+   var osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '<a href="https://dronecoria.org" target="_blank">Dronecoria</a> | &copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a> contributors'
-   })
-   tile.addTo(map);
+   });
+   // var mqi = L.tileLayer("http://{s}.mqcdn.com/tiles/1.0.0/sat/{z}/{x}/{y}.png", {subdomains: ['otile1','otile2','otile3','otile4']});
+   var stt = L.tileLayer("http://tile.stamen.com/terrain/{z}/{x}/{y}.jpg", {
+      attribution: '<a href="https://dronecoria.org" target="_blank">Dronecoria</a> | &copy; <a href="http://maps.stamen.com/" target="_blank">StamenMap</a>'
+   });
+   var mbs = L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoiYW50ZXNwaSIsImEiOiJja2hhbG04dWQwMWg2MnZsY3B5cnVrcWw0In0.AsWLQarbqRSC1JHLkOEgDQ", {
+      id: 'mapbox/satellite-v9',
+      // zoomOffset: -1,
+      // tileSize: 512,
+      attribution: '<a href="https://dronecoria.org" target="_blank">Dronecoria</a> | &copy; <a href="https://www.mapbox.com/" target="_blank">Mapbox</a>'
+   });
+   var baseMaps = {
+      "OpenStreetMap": osm,
+      "StamenTerrain": stt,
+      "MapboxSatellite": mbs,
+      // "MapQuestImagery": mqi
+   };
+   var map = L.map('map', {
+      center: [40.493673, -3.875752],
+      layers: [osm],
+      zoom: 5
+   });
+   // tile.addTo(map);
+   L.control.layers(baseMaps).addTo(map);
 
-   var DroneMeta = L.Icon.extend({
-      options: {
-         shadowUrl:    'drone_shadow_100.png',
-         iconSize:     [60, 37],
-         shadowSize:   [60, 20],
-         iconAnchor:   [34, 30],
-         shadowAnchor: [30, 10],
-         popupAnchor:  [-3, -26]
-      }
-   });
-   var TreesMeta = L.Icon.extend({
-      options: {
-         shadowUrl:    'trees_shadow_100.png',
-         iconSize:     [60, 55],
-         shadowSize:   [60, 43],
-         iconAnchor:   [32, 54],
-         shadowAnchor: [29, 43],
-         popupAnchor:  [0, -30]
-      }
-   });
-   var SeedMeta = L.Icon.extend({
-      options: {
-         shadowUrl:    'seed_shadow_100.png',
-         iconSize:     [44, 80],
-         shadowSize:   [44, 31],
-         iconAnchor:   [16, 46],
-         shadowAnchor: [6, 32],
-         popupAnchor:  [6, -32]
-      }
-   });
-   var PersonMeta = L.Icon.extend({
-      options: {
-         shadowUrl:    'person_shadow_100.png',
-         iconSize:     [40, 49],
-         shadowSize:   [40, 31],
-         iconAnchor:   [20, 48],
-         shadowAnchor: [16, 30],
-         popupAnchor:  [1, -46]
-      }
-   });
+   var markers = L.markerClusterGroup();
 
-   var droneIcon = new DroneMeta({iconUrl: 'drone_icon_100.png'});
-   var treesIcon = new TreesMeta({iconUrl: 'trees_icon_100.png'});
-   var seedIcon = new SeedMeta({iconUrl: 'seed_icon_100.png'});
-   var personIcon = new PersonMeta({iconUrl: 'person_icon_100.png'});
-   // L.marker([51.49, -0.1], ).bindPopup("I am a marker.").addTo(map);
+   var droneIcon = new L.Icon({
+      iconUrl: 'drone_makers.png',
+      iconSize:     [50, 50],
+      iconAnchor:   [24, 26],
+      popupAnchor:  [2, -2]
+   });
+   var treesIcon = new L.Icon({
+      iconUrl: 'restorations.png',
+      iconSize:     [50, 50],
+      iconAnchor:   [24, 46],
+      popupAnchor:  [0, -26]
+   });
+   var seedIcon = new L.Icon({
+      iconUrl: 'seed_researchers.png',
+      iconSize:     [50, 50],
+      iconAnchor:   [28, 28],
+      popupAnchor:  [0, 0]
+   });
+   var volunteerIcon = new L.Icon({
+      iconUrl: 'volunteers.png',
+      iconSize:     [50, 50],
+      iconAnchor:   [24, 50],
+      popupAnchor:  [0, -26]
+   });
 
    // Dronecoria - Drone Maker
-   L.marker([38.7006143,-0.4959241], {icon: droneIcon}).bindPopup(
+   markers.addLayer(L.marker([38.7006143,-0.4959241], {icon: droneIcon}).bindPopup(
       '<b>Dronecoria</b><br/>' +
       '<i>Non-profit organisation</i><br/>' +
-      '<a href="http://dronecoria.org" target="_blank"><i class="fa fa-globe" aria-hidden="true"></i> dronecoria.org</a><br/>' +
+      '<a href="http://dronecoria.org" target="_blank">dronecoria.org</a><br/>' +
       '<a href="http://facebook.com/dronecoria" target="_blank"><i class="fa fa-facebook" aria-hidden="true"></i></a> ' +
       '<a href="http://instagram.com/dronecoria" target="_blank"><i class="fa fa-instagram" aria-hidden="true"></i></a> ' +
       '<a href="http://twitter.com/dronecoria" target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i></a> '
-   ).addTo(map);
+   ));
 
    // Semillistas - Seed researcher
-   L.marker([36.9368755,-3.3290543], {icon: seedIcon}).bindPopup(
+   markers.addLayer(L.marker([36.935392, -3.328393], {icon: seedIcon}).bindPopup(
       '<b>Semillistas</b><br/>' +
       '<i>Non-profit organisation</i><br/>' +
-      '<a href="http://semillistas.es" target="_blank"><i class="fa fa-globe" aria-hidden="true"></i> semillistas.es</a><br/>' +
+      '<a href="http://semillistas.es" target="_blank">semillistas.es</a><br/>' +
       '<a href="http://facebook.com/SemillistasAndalucia" target="_blank"><i class="fa fa-facebook" aria-hidden="true"></i></a> ' +
       '<a href="http://instagram.com/semillistasandalucia" target="_blank"><i class="fa fa-instagram" aria-hidden="true"></i></a> '
-   ).addTo(map);
+   ));
 
    // Antonio Espinosa - Volunteer
-   L.marker([40.493673, -3.875752], {icon: personIcon}).bindPopup(
+   markers.addLayer(L.marker([40.493673, -3.875752], {icon: volunteerIcon}).bindPopup(
       '<b>Antonio Espinosa</b><br/>' +
       '<i>Software Engineer</i><br/>' +
       '<a href="http://twitter.com/antespi" target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i></a> ' +
       '<a href="http://github.com/antespi" target="_blank"><i class="fa fa-github" aria-hidden="true"></i></a> '
-   ).addTo(map);
+   ));
 
    // Lleida - Reforest project
-   L.marker([42.1647265,0.9264575], {icon: treesIcon}).bindPopup(
+   markers.addLayer(L.marker([42.1647265,0.9264575], {icon: treesIcon}).bindPopup(
       '<b>Reforest project</b><br/>' +
       '<i>Lleida</i>'
-   ).addTo(map);
+   ));
+
+   map.addLayer(markers);
+   // Reference standar marker
+   // L.marker([42.1647265,0.9264575], ).bindPopup("I am a marker.").addTo(map);
 
 </script>
 
