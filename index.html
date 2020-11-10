@@ -39,10 +39,13 @@
 <div id='bottomleft'></div>
 
 <script>
-
+   var attr = '<a href="https://dronecoria.org" target="_blank">Dronecoria</a> | Icons by \
+               <a href="https://www.flaticon.es/autores/smashicons" title="Smashicons">Smashicons</a>, \
+               <a href="https://www.flaticon.es/autores/freepik" title="Freepik">Freepik</a> and \
+               <a href="https://www.flaticon.es/autores/surang" title="surang">surang</a>'
    // --- Open Street Map ------------------------------------------------------
    var osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '<a href="https://dronecoria.org" target="_blank">Dronecoria</a> | &copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a> contributors'
+      attribution: attr + ' | &copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a> contributors'
    });
 
    // --- Map Quest ------------------------------------------------------------
@@ -50,24 +53,24 @@
    // MBHYB="https://{s}.tiles.mapbox.com/v4/mapquest.satellite/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwcXVlc3QiLCJhIjoiY2Q2N2RlMmNhY2NiZTRkMzlmZjJmZDk0NWU0ZGJlNTMifQ.mPRiEubbajc6a5y9ISgydg";
    // MBSAT="https://{s}.tiles.mapbox.com/v4/mapquest.satellitenolabels/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwcXVlc3QiLCJhIjoiY2Q2N2RlMmNhY2NiZTRkMzlmZjJmZDk0NWU0ZGJlNTMifQ.mPRiEubbajc6a5y9ISgydg";
    var mqsnl = L.tileLayer("https://{s}.tiles.mapbox.com/v4/mapquest.satellitenolabels/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwcXVlc3QiLCJhIjoiY2Q2N2RlMmNhY2NiZTRkMzlmZjJmZDk0NWU0ZGJlNTMifQ.mPRiEubbajc6a5y9ISgydg", {
-      attribution: '<a href="https://dronecoria.org" target="_blank">Dronecoria</a> | &copy; <a href="https://www.mapquest.com/" target="_blank">MapQuest</a>'
+      attribution: attr + ' | &copy; <a href="https://www.mapquest.com/" target="_blank">MapQuest</a>'
    });
    // MBLIGHT="https://{s}.tiles.mapbox.com/v4/mapquest.light/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwcXVlc3QiLCJhIjoiY2Q2N2RlMmNhY2NiZTRkMzlmZjJmZDk0NWU0ZGJlNTMifQ.mPRiEubbajc6a5y9ISgydg";
    // MBDARK="https://{s}.tiles.mapbox.com/v4/mapquest.dark/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwcXVlc3QiLCJhIjoiY2Q2N2RlMmNhY2NiZTRkMzlmZjJmZDk0NWU0ZGJlNTMifQ.mPRiEubbajc6a5y9ISgydg";
    // MBMAP_OPEN="https://{s}.tiles.mapbox.com/v4/mapquest.streets-mb/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwcXVlc3QiLCJhIjoiY2Q2N2RlMmNhY2NiZTRkMzlmZjJmZDk0NWU0ZGJlNTMifQ.mPRiEubbajc6a5y9ISgydg";
    var mqsto = L.tileLayer("https://{s}.tiles.mapbox.com/v4/mapquest.streets-mb/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwcXVlc3QiLCJhIjoiY2Q2N2RlMmNhY2NiZTRkMzlmZjJmZDk0NWU0ZGJlNTMifQ.mPRiEubbajc6a5y9ISgydg", {
-      attribution: '<a href="https://dronecoria.org" target="_blank">Dronecoria</a> | &copy; <a href="https://www.mapquest.com/" target="_blank">MapQuest</a>'
+      attribution: attr + ' | &copy; <a href="https://www.mapquest.com/" target="_blank">MapQuest</a>'
    });
    // MBHYB_OPEN="https://{s}.tiles.mapbox.com/v4/mapquest.satellite-mb/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwcXVlc3QiLCJhIjoiY2Q2N2RlMmNhY2NiZTRkMzlmZjJmZDk0NWU0ZGJlNTMifQ.mPRiEubbajc6a5y9ISgydg";
    var mqso = L.tileLayer("https://{s}.tiles.mapbox.com/v4/mapquest.satellite-mb/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwcXVlc3QiLCJhIjoiY2Q2N2RlMmNhY2NiZTRkMzlmZjJmZDk0NWU0ZGJlNTMifQ.mPRiEubbajc6a5y9ISgydg", {
-      attribution: '<a href="https://dronecoria.org" target="_blank">Dronecoria</a> | &copy; <a href="https://www.mapquest.com/" target="_blank">MapQuest</a>'
+      attribution: attr + ' | &copy; <a href="https://www.mapquest.com/" target="_blank">MapQuest</a>'
    });
    // MBLIGHT_OPEN="https://{s}.tiles.mapbox.com/v4/mapquest.light-mb/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwcXVlc3QiLCJhIjoiY2Q2N2RlMmNhY2NiZTRkMzlmZjJmZDk0NWU0ZGJlNTMifQ.mPRiEubbajc6a5y9ISgydg";
    // MBDARK_OPEN="https://{s}.tiles.mapbox.com/v4/mapquest.dark-mb/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwcXVlc3QiLCJhIjoiY2Q2N2RlMmNhY2NiZTRkMzlmZjJmZDk0NWU0ZGJlNTMifQ.mPRiEubbajc6a5y9ISgydg";
 
    // --- Stamen ---------------------------------------------------------------
    var stt = L.tileLayer("http://tile.stamen.com/terrain/{z}/{x}/{y}.jpg", {
-      attribution: '<a href="https://dronecoria.org" target="_blank">Dronecoria</a> | &copy; <a href="http://maps.stamen.com/" target="_blank">StamenMap</a>'
+      attribution: attr + ' | &copy; <a href="http://maps.stamen.com/" target="_blank">StamenMap</a>'
    });
 
    // --- Mapbox ---------------------------------------------------------------
@@ -75,7 +78,7 @@
       id: 'mapbox/satellite-v9',
       // zoomOffset: -1,
       // tileSize: 512,
-      attribution: '<a href="https://dronecoria.org" target="_blank">Dronecoria</a> | &copy; <a href="https://www.mapbox.com/" target="_blank">Mapbox</a>'
+      attribution: attr + ' | &copy; <a href="https://www.mapbox.com/" target="_blank">Mapbox</a>'
    });
 
    var baseMaps = {
