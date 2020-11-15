@@ -44,8 +44,9 @@
                <a href="https://www.flaticon.es/autores/freepik" title="Freepik">Freepik</a> and \
                <a href="https://www.flaticon.es/autores/surang" title="surang">surang</a>'
    // --- Open Street Map ------------------------------------------------------
-   var osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: attr + ' | &copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a> contributors'
+   var osm = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: attr + ' | &copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a> contributors',
+      maxZoom: 19,
    });
 
    // --- Map Quest ------------------------------------------------------------
@@ -81,6 +82,46 @@
       attribution: attr + ' | &copy; <a href="https://www.mapbox.com/" target="_blank">Mapbox</a>'
    });
 
+   var suenos = L.tileLayer("https://tiles.openaerialmap.org/5a57c7322553e6000ce5ab93/0/03091374-98d5-4b90-b107-d1c1f870f6fc/{z}/{x}/{y}.png");
+   var olivos = L.tileLayer("https://tiles.openaerialmap.org/59f0f0af31eff4000c3804fe/0/289c94ea-0d6e-432f-a912-740294acf086/{z}/{x}/{y}.png");
+   var guardamar = L.tileLayer("https://tiles.openaerialmap.org/59fc800e31eff4000c380556/0/766aa8a9-83ff-429d-b411-b7e1071e4d73/{z}/{x}/{y}.png");
+   var masdeu = L.tileLayer("https://tiles.openaerialmap.org/5a02e85d31eff4000c380595/0/312f992c-e1a4-4a34-b92f-ae070e70bdae/{z}/{x}/{y}.png");
+   var junquera = L.tileLayer("https://tiles.openaerialmap.org/5af01a0b17721d00111b72b3/0/5af01a0b17721d00111b72b4/{z}/{x}/{y}.png");
+   var plameral = L.tileLayer("https://tiles.openaerialmap.org/5b448f082b6a08001185f972/0/5b448f082b6a08001185f973/{z}/{x}/{y}.png");
+   var almenara = L.tileLayer("https://tiles.openaerialmap.org/5b92b1995d406700087d1521/0/5b92b1995d406700087d1522/{z}/{x}/{y}");
+   var elbosque = L.tileLayer("https://tiles.openaerialmap.org/5bc4ef044d3b1b00050eee98/0/5bc4ef044d3b1b00050eee99/{z}/{x}/{y}");
+   var rosario = L.tileLayer("https://tiles.openaerialmap.org/5be6f924a6df5900063b121c/0/5be6f924a6df5900063b121d/{z}/{x}/{y}");
+   var hogar = L.tileLayer("https://tiles.openaerialmap.org/5beeed5fac56e7000548a336/0/5beeed5fac56e7000548a337/{z}/{x}/{y}");
+   var tablada = L.tileLayer("https://tiles.openaerialmap.org/5bef657b1a6e1b00054b79fd/0/5bef657b1a6e1b00054b79fe/{z}/{x}/{y}");
+   var velatropa = L.tileLayer("https://tiles.openaerialmap.org/5c462256b764e60005511cc1/0/5c462256b764e60005511cc2/{z}/{x}/{y}");
+   var indio = L.tileLayer("https://tiles.openaerialmap.org/5d897c64c54930000548a7b8/0/5d897c64c54930000548a7b9/{z}/{x}/{y}");
+   var maschwitz = L.tileLayer("https://tiles.openaerialmap.org/5d92639413724400065da242/0/5d92639413724400065da243/{z}/{x}/{y}");
+   var sabina = L.tileLayer("https://tiles.openaerialmap.org/5e1edfd8d2b5de0006acdd7c/0/5e1edfd8d2b5de0006acdd7d/{z}/{x}/{y}");
+   var molar = L.tileLayer("https://tiles.openaerialmap.org/5ecd401e7334000006dadfed/0/5ecd401e7334000006dadfee/{z}/{x}/{y}");
+   var escalera = L.tileLayer("https://tiles.openaerialmap.org/593164d3e407d7001138610d/0/6f407df9-a342-4fe8-a802-6cd81ca8974a/{z}/{x}/{y}.png", {
+      maxZoom: 27,
+      minZoom: 14,
+   });
+
+   var aeracoop = L.layerGroup([
+      suenos,
+      olivos,
+      guardamar,
+      masdeu,
+      junquera,
+      plameral,
+      almenara,
+      elbosque,
+      rosario,
+      hogar,
+      tablada,
+      velatropa,
+      indio,
+      maschwitz,
+      sabina,
+      molar,
+      escalera,
+   ]);
    var baseMaps = {
       "OpenStreetMap": osm,
       "Stamen-Terrain": stt,
@@ -89,12 +130,17 @@
       "MapQuest-Streets": mqsto,
       "MapQuest-Hybrid": mqso,
    };
+   var overlays = {
+      "Aeracoop": aeracoop,
+   };
    var map = L.map('map', {
-      center: [40.493673, -3.875752],
-      layers: [osm],
-      zoom: 5
+      center: [38.14530427863081, -0.6382856260073488],
+      layers: [osm, aeracoop],
+      zoom: 17,
+      maxZoom: 24,
+      minZoom: 3,
    });
-   L.control.layers(baseMaps).addTo(map);
+   L.control.layers(baseMaps, overlays).addTo(map);
 
    var markers = L.markerClusterGroup();
 
@@ -102,13 +148,13 @@
       iconUrl: 'drone_makers.png',
       iconSize:     [50, 50],
       iconAnchor:   [24, 26],
-      popupAnchor:  [2, -2]
+      popupAnchor:  [1, -2]
    });
    var treesIcon = new L.Icon({
       iconUrl: 'restorations.png',
       iconSize:     [50, 50],
       iconAnchor:   [24, 46],
-      popupAnchor:  [0, -26]
+      popupAnchor:  [1, -26]
    });
    var seedIcon = new L.Icon({
       iconUrl: 'seed_researchers.png',
@@ -120,7 +166,7 @@
       iconUrl: 'volunteers.png',
       iconSize:     [50, 50],
       iconAnchor:   [24, 50],
-      popupAnchor:  [0, -26]
+      popupAnchor:  [1, -26]
    });
 
    // Dronecoria - Drone Maker
@@ -158,7 +204,29 @@
 
    map.addLayer(markers);
    // Reference standar marker
+   // L.marker([38.7006143,-0.4959241]).addTo(map);
    // L.marker([42.1647265,0.9264575]).addTo(map);
+   // L.marker([40.493673, -3.875752]).addTo(map);
+   // L.marker([36.935392, -3.328393]).addTo(map);
+
+   // Markers for georeferenced images from Aeracoop
+   L.marker([41.53122998794414, 1.7111498150930693]).bindPopup('Olivos Castell de Pedra').addTo(map);
+   L.marker([38.100250668785044, -0.6477209431836739]).bindPopup('Incendio Guardamar Septiembre 2017').addTo(map);
+   L.marker([41.44561105794904, 2.157932740495423]).bindPopup('Can Masdeu').addTo(map);
+   L.marker([36.69006312693383, -4.807005075234989]).bindPopup('Finca los suenos').addTo(map);
+   L.marker([37.95698653444748, -2.167562499999986]).bindPopup('Ecosystem Restoration Camp - La Junquera - May 2018').addTo(map);
+   L.marker([38.092961004543845, -0.9357434999999968]).bindPopup('Triangulo Trasero IES El Palmeral').addTo(map);
+   L.marker([39.79108151214237, -2.842055500000009]).bindPopup('Castillo Puebla Almenara').addTo(map);
+   L.marker([-32.90643450981685, -60.710122500000004]).bindPopup('Parque Huerta El Bosque').addTo(map);
+   L.marker([-32.88022950164805, -60.67658749999998]).bindPopup('Club Terra Rosario, Isla la Invernada').addTo(map);
+   L.marker([-32.99442150478005, -60.6878085]).bindPopup('Parque Huerta Hogar Español').addTo(map);
+   L.marker([-32.994564016529125, -60.61976699999999]).bindPopup('Parque Huerta La Tablada').addTo(map);
+   L.marker([-34.53911852106012, -58.446628000000004]).bindPopup('Mapa VICCU/ Velatropa').addTo(map);
+   L.marker([-31.769188519911868, -60.830958499999994]).bindPopup('Camino del Indio').addTo(map);
+   L.marker([-34.372629009718814, -58.75915299999999]).bindPopup('Incendio Reserva Ingeniero Maschwitz').addTo(map);
+   L.marker([37.66303201145354, -2.2256834999999864]).bindPopup('Almeria Sabina Albar').addTo(map);
+   L.marker([38.146429011960485, -0.6547084999999964]).bindPopup('Sierra El Molar Reforestation').addTo(map);
+   L.marker([38.14530427863081, -0.6382856260073488]).bindPopup('Finca La escalera').addTo(map);
 
 
    L.polygon([
