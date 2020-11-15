@@ -94,13 +94,16 @@
    var hogar = L.tileLayer("https://tiles.openaerialmap.org/5beeed5fac56e7000548a336/0/5beeed5fac56e7000548a337/{z}/{x}/{y}");
    var tablada = L.tileLayer("https://tiles.openaerialmap.org/5bef657b1a6e1b00054b79fd/0/5bef657b1a6e1b00054b79fe/{z}/{x}/{y}");
    var velatropa = L.tileLayer("https://tiles.openaerialmap.org/5c462256b764e60005511cc1/0/5c462256b764e60005511cc2/{z}/{x}/{y}");
-   var indio = L.tileLayer("https://tiles.openaerialmap.org/5d897c64c54930000548a7b8/0/5d897c64c54930000548a7b9/{z}/{x}/{y}");
+   var indio = L.tileLayer("https://tiles.openaerialmap.org/5d897c64c54930000548a7b8/0/5d897c64c54930000548a7b9/{z}/{x}/{y}", {
+      maxZoom: 24,
+      minZoom: 16,
+   });
    var maschwitz = L.tileLayer("https://tiles.openaerialmap.org/5d92639413724400065da242/0/5d92639413724400065da243/{z}/{x}/{y}");
    var sabina = L.tileLayer("https://tiles.openaerialmap.org/5e1edfd8d2b5de0006acdd7c/0/5e1edfd8d2b5de0006acdd7d/{z}/{x}/{y}");
    var molar = L.tileLayer("https://tiles.openaerialmap.org/5ecd401e7334000006dadfed/0/5ecd401e7334000006dadfee/{z}/{x}/{y}");
    var escalera = L.tileLayer("https://tiles.openaerialmap.org/593164d3e407d7001138610d/0/6f407df9-a342-4fe8-a802-6cd81ca8974a/{z}/{x}/{y}.png", {
-      maxZoom: 27,
-      minZoom: 14,
+      maxZoom: 24,
+      minZoom: 17,
    });
 
    var aeracoop = L.layerGroup([
@@ -134,13 +137,31 @@
       "Aeracoop": aeracoop,
    };
    var map = L.map('map', {
-      center: [38.14530427863081, -0.6382856260073488],
       layers: [osm, aeracoop],
-      zoom: 17,
       maxZoom: 24,
       minZoom: 3,
    });
    L.control.layers(baseMaps, overlays).addTo(map);
+
+	var ZoomViewer = L.Control.extend({
+		onAdd: function(){
+			var gauge = L.DomUtil.create('div');
+			gauge.style.width = '52px';
+			gauge.style.background = 'rgba(255,255,255,0.5)';
+			gauge.style.textAlign = 'right';
+			gauge.style.padding = '5px';
+			map.on('zoomstart zoom zoomend', function(ev){
+				gauge.innerHTML = 'Zoom: ' + map.getZoom();
+			})
+			return gauge;
+		}
+	});
+
+	(new ZoomViewer).addTo(map);
+   map.setView(
+      [38.14530427863081, -0.6382856260073488],  // Center
+      17,                                        // Zoom
+   );
 
    var markers = L.markerClusterGroup();
 
